@@ -10,6 +10,7 @@ public class billBoard {
         GameController gameController = new GameController();
         Player player = new Player();
         QuestionBank questionBank = new QuestionBank();
+        int currentLevel= 1;
 
         System.out.println("\n 🦑🦑 🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉 Welcome to who wants to be a Millionaire 😜😜😜😜 🦑🦑");
         System.out.println("\n 🦑🦑 🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉 Before you can play please register 😜😜😜😜 🦑🦑");
@@ -19,7 +20,7 @@ public class billBoard {
         player.birthDate = LocalDate.parse(input.nextLine());
 
         System.out.printf("Welcome %s born in %s\n", player.Name, player.birthDate);
-        gameController.ShowMenu(player, input);
+        gameController.ShowMenu(player, input, currentLevel);
 
 
     }

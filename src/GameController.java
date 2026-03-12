@@ -6,7 +6,7 @@ public class GameController {
     GameController() {
 
     }
-    public void ShowMenu(Player player, Scanner input){
+    public void ShowMenu(Player player, Scanner input, int currentLevel){
         System.out.println("\n 🦑🦑 🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉Welcome to who wants to be a Millionaire😜😜😜😜 🦑🦑");
         System.out.println("\n 🦑🦑🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉 1.Procced to game 🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉🦑🦑");
         System.out.println("\n 🦑🦑🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉 2.Exit 🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉🦑🦑");
@@ -17,7 +17,7 @@ public class GameController {
 
         switch (option){
             case 1:
-                questionBank.showMenu(player, input);
+                questionBank.showMenu(player, input, currentLevel);
                 break;
             case 2:
                 return;
@@ -28,6 +28,9 @@ public class GameController {
                 System.out.println("please select valid option (1-3)");
         }
     }
+
+
+
 
 
 
