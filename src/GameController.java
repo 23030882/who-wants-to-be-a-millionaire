@@ -17,7 +17,7 @@ public class GameController {
 
         switch (option){
             case 1:
-                questionBank.showMenu(player, input, currentLevel);
+                questionBank.showMenu(player, input);
                 break;
             case 2:
                 return;
@@ -29,7 +29,18 @@ public class GameController {
         }
     }
 
+    public void AnswerChecker(String Answer,int score, int currentLevel){
+        if(Answer.equals(questionBank.quiz.get(questionBank.getCorrectAnswerIndex()))){
 
+            score +=100;
+            currentLevel++;
+
+
+        }
+        else {
+            currentLevel++;
+        }
+    }
 
 
 

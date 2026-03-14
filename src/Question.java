@@ -3,6 +3,7 @@ public class Question {
     public String question;
     public String options;
     public int correctAnswerIndex;
+    public int currentQuestion;
 
 
     public Question(String question, String options, int correctAnswerIndex) {

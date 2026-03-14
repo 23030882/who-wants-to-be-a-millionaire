@@ -9,7 +9,7 @@ public class QuestionBank {
 
     }
 
-    public void showMenu(Player player, Scanner input, int currentLevel) {
+    public void showMenu(Player player, Scanner input) {
         while (true) {
             System.out.println("\n ........ Please Choose Your Preferred Question Category.........");
             System.out.println("\n ........ 1.historicalQuestions.........");
@@ -21,13 +21,13 @@ public class QuestionBank {
 
             switch (choice){
                 case 1:
-                    historicalQuestions(player, input, currentLevel);
+                    historicalQuestions(player, input);
                     break;
                 case 2:
-                    pokemonQuestions(player, input, currentLevel);
+                    pokemonQuestions(player, input);
                     break;
                 case 3:
-                    musicalQuestions(player, input, currentLevel);
+                    musicalQuestions(player, input);
                     break;
                 case 4:
                     return;
@@ -55,7 +55,7 @@ public class QuestionBank {
         System.out.println("\n ........ This is a fun project for entertainment purposes only. No real prize money will be awarded  .........");
 
     }
-    private void historicalQuestions(Player player, Scanner input, int currentLevel){
+    private void historicalQuestions(Player player, Scanner input){
 
 
 
@@ -308,9 +308,9 @@ public class QuestionBank {
                 "Which battle established Norman rule in England?",
                 "A) Hastings B) Stamford Bridge C) Bannockburn D) Bosworth Field E) Agincourt",
                 1));
-        QuestionServer(currentLevel);
+
     }
-    private void pokemonQuestions(Player player, Scanner input, int currentLevel){
+    private void pokemonQuestions(Player player, Scanner input){
 
             quiz.add(new Question(
                     "Which Pokémon is the primary mascot of the franchise?",
@@ -565,10 +565,10 @@ public class QuestionBank {
                     "Who was the Director of the original Pokémon Red and Green games?",
                     "A) Shigeru Miyamoto B) Satoshi Tajiri C) Junichi Masuda D) Ken Sugimori E) Hideo Kojima",
                     2));
-        QuestionServer(currentLevel);
+
     }
 
-    private void musicalQuestions(Player player, Scanner input, int currentLevel){
+    private void musicalQuestions(Player player, Scanner input){
 
 
         quiz.add(new Question("Who is known as the 'King of Pop'?",
@@ -771,19 +771,17 @@ public class QuestionBank {
         quiz.add(new Question("Which composer was also a professional chemist?",
                 "A) Borodin B) Cui C) Mussorgsky D) Balakirev E) Rimsky-Korsakov",
                 1));
-        QuestionServer(currentLevel);
+
     }
-    public void QuestionServer(int currentLevel){
-        for (currentLevel=0; currentLevel < quiz.size(); currentLevel++) {
-            Question currentQuestion = quiz.get(currentLevel);
-            Player.Question = currentQuestion.toString();
-            System.out.println(currentQuestion);
+    public Question QuestionServer(int currentLevel){
+            return quiz.get(currentLevel);
 
 
             }
-        }
-
+    public int getCorrectAnswerIndex(){
+        return getCorrectAnswerIndex();
     }
+        }
 
 
 

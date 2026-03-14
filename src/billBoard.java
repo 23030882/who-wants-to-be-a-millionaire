@@ -9,8 +9,9 @@ public class billBoard {
         Scanner input = new Scanner(System.in);
         GameController gameController = new GameController();
         Player player = new Player();
+
         QuestionBank questionBank = new QuestionBank();
-        int currentLevel= 1;
+        int currentLevel= 0;
 
         System.out.println("\n 🦑🦑 🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉 Welcome to who wants to be a Millionaire 😜😜😜😜 🦑🦑");
         System.out.println("\n 🦑🦑 🐉🐉🐉🐉🐉🐉🐉🐉🐉🐉 Before you can play please register 😜😜😜😜 🦑🦑");
@@ -21,6 +22,20 @@ public class billBoard {
 
         System.out.printf("Welcome %s born in %s\n", player.Name, player.birthDate);
         gameController.ShowMenu(player, input, currentLevel);
+
+
+        while(currentLevel<questionBank.quiz.size()){
+            Question currentQuestion = questionBank.QuestionServer(currentLevel);
+            System.out.println(currentQuestion);
+            System.out.println("Answer");
+            String Answer = input.nextLine();
+
+            input.nextLine(); // consume empty input line
+
+
+
+        }
+
 
 
     }
