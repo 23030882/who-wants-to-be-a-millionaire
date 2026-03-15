@@ -1,8 +1,12 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class GameController {
 
+    boolean fiftyFiftyUsed;
+    boolean phoneAFriendUsed;
     QuestionBank questionBank = new QuestionBank();
+    LifeLineServices lineServices = new LifeLineServices();
     GameController() {
 
     }
@@ -21,6 +25,7 @@ public class GameController {
 
         System.out.print("Option :");
         int option = input.nextInt();
+        input.nextLine();
 
         switch (option){
             case 1:
@@ -42,8 +47,8 @@ public class GameController {
         int currentLevel = 0;
 
         // Reset lifelines for new game
-        //fiftyFiftyUsed = false;
-        //phoneAFriendUsed = false;
+        fiftyFiftyUsed = false;
+        phoneAFriendUsed = false;
 
         while (currentLevel < questionBank.quiz.size()) {
             Question q = questionBank.QuestionServer(currentLevel);
@@ -52,29 +57,28 @@ public class GameController {
                 System.out.println("Error loading question!");
                 break;
             }
+            boolean answered = false;
+            String userChoice = "";
 
-            System.out.println("\n╔══════════════════════════════════════╗");
-            System.out.println("║  Question " + (currentLevel + 1) + " - $" + getPrizeForLevel(currentLevel) + "  ║");
-            System.out.println("╚══════════════════════════════════════╝");
-            System.out.println("\n" + q.question);
-            System.out.println(q.options);
+            if (!answered){
 
-            // Show available lifelines
-            //showLifelines();
+                System.out.println("\n╔══════════════════════════════════════╗");
+                System.out.println("║  Question " + (currentLevel + 1) + " - $" + getPrizeForLevel(currentLevel) + "  ║");
+                System.out.println("╚══════════════════════════════════════╝");
+                System.out.println("\n" + q.question);
+                System.out.println(q.options);
 
-            System.out.print("\nYour answer (A/B/C/D/E) or L for lifeline: ");
-            String userChoice = input.nextLine().toUpperCase();
 
-            // Handle lifeline usage
-           /*
-           if (userChoice.equals("L")) {
-                userChoice = handleLifelines(q, currentLevel, input);
-                if (userChoice == null) {
-                    continue; // If lifeline used but no answer provided, ask again
+                System.out.print("\nYour answer (A/B/C/D/E) or L for lifeline: ");
+                userChoice = input.nextLine().toUpperCase();
+
+                if (userChoice.equals("L")) {
+                    UseLifeLines(input, q, currentLevel);
+                }else  {
+                    answered = true;
                 }
-            }
 
-            */
+            }
 
             boolean isCorrect = AnswerChecker(userChoice, q);
 
@@ -90,23 +94,59 @@ public class GameController {
                         break;
                     }
                 } else {
-                    System.out.println("\n🏆🏆🏆 CONGRATULATIONS!"+ player.Name +"YOU'VE WON $1,000,000! 🏆🏆🏆");
+                    System.out.println("\n🏆🏆🏆 CONGRATULATIONS! "+player.Name +" YOU'VE WON $1,000,000! 🏆🏆🏆");
                 }
             } else {
                 System.out.println("\n❌ WRONG! Game Over.");
-                System.out.println(player.Name +"You leave with $0");
+                System.out.println(player.Name+" You leave with $0");
                 break;
             }
         }
     }
 
-    /*private void showLifelines() {
-        System.out.print("Lifelines: ");
-        if (!fiftyFiftyUsed) System.out.print("[50:50] ");
-        if (!phoneAFriendUsed) System.out.print("[Phone a Friend] ");
-        System.out.println();
+    private void UseLifeLines(Scanner input, Question q, int currentLevel) {
+
+        if (fiftyFiftyUsed && phoneAFriendUsed){
+            System.out.println("❌ All lifelines have already been used!");
+            return;
+        }
+
+        System.out.print("\n ------ Available Lifelines ------");
+        if (!fiftyFiftyUsed) System.out.print("1."+ "[50:50] ");
+        if (!phoneAFriendUsed) System.out.print("2."+ "[Phone a Friend]: ");
+        System.out.println("3. Go Back");
+
+        System.out.print("Select: ");
+        String choice = input.nextLine();
+
+        switch (choice){
+            case "1":
+                if (!fiftyFiftyUsed) {
+                    List<Integer> incorrect = lineServices.use5050(q);
+                    System.out.print("Lifeline used! Incorrect options are: ");
+                    for (int idx : incorrect) {
+                        System.out.print((char)('A' + idx - 1) + " ");
+                    }
+                    System.out.println();
+                    fiftyFiftyUsed = true;
+                } else {
+                    System.out.println("Already used!");
+                }
+                break;
+            case "2":
+                if (!phoneAFriendUsed) {
+                    String advice = lineServices.usePhoneAFriend(q, currentLevel);
+                    System.out.println("\n📞 Calling your friend...");
+                    System.out.println(advice);
+                    phoneAFriendUsed = true;
+                } else {
+                    System.out.println("Already used!");
+                }
+                break;
+            default:
+                break;
+        }
     }
-    */
 
 
     public boolean AnswerChecker(String userAnswer, Question currentQuestion) {
