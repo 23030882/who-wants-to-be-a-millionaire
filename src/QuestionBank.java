@@ -10,7 +10,8 @@ public class QuestionBank {
     }
 
     public void showMenu(Player player, Scanner input) {
-        while (true) {
+        boolean categorySelected = false;
+        while (!categorySelected) {
             System.out.println("\n ........ Please Choose Your Preferred Question Category.........");
             System.out.println("\n ........ 1.historicalQuestions.........");
             System.out.println("\n ........ 2.pokemonQuestions.........");
@@ -18,16 +19,20 @@ public class QuestionBank {
             System.out.println("\n ........ 4.Exit.........");
             System.out.print("Option :");
             int choice = input.nextInt();
+            input.nextLine(); //clear buffer
 
             switch (choice){
                 case 1:
                     historicalQuestions(player, input);
+                    categorySelected = true;
                     break;
                 case 2:
                     pokemonQuestions(player, input);
+                    categorySelected = true;
                     break;
                 case 3:
                     musicalQuestions(player, input);
+                    categorySelected = true;
                     break;
                 case 4:
                     return;
@@ -773,15 +778,14 @@ public class QuestionBank {
                 1));
 
     }
-    public Question QuestionServer(int currentLevel){
-            return quiz.get(currentLevel);
-
-
-            }
-    public int getCorrectAnswerIndex(){
-        return getCorrectAnswerIndex();
-    }
+    public Question QuestionServer(int level) {
+        if (level >= 0 && level < quiz.size()) {
+            return quiz.get(level);
         }
+        return null;
+    }
+
+}
 
 
 
